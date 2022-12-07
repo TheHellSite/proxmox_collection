@@ -1,4 +1,4 @@
-# LXC GPU passthrough (run as root user)
+# LXC GPU passthrough (run commands as root user)
 
 The GPU passthrough guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
 
@@ -43,9 +43,20 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   ```
 
-### 3. LXC Guest: Start the LXC, add service account (f.e. jellyfin) to group "render", install the latest Mesa drivers and reboot the LXC.
+### 3. LXC Guest: Finalize.
+
+  1. Start the LXC.
+
+  2. Add service account (f.e. jellyfin) to group "render".
 
   ```
-  # Arch Linux command
-  usermod -aG render jellyfin && pacman -Syyu --needed --noconfirm mesa libva-mesa-driver && reboot
+  usermod -aG render jellyfin
   ```
+
+  3. Install the Mesa drivers.
+  ```
+  # Arch Linux
+  pacman -Syyu --needed --noconfirm mesa libva-mesa-driver
+  ```
+
+  4. Reboot the LXC.
