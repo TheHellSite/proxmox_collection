@@ -56,7 +56,10 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
   3. Install the Mesa drivers.
   ```
   # Arch Linux
-  pacman -Syyu --needed --noconfirm mesa libva-mesa-driver
+  pacman -Syyu --needed --noconfirm mesa
+  
+  # AMD specific extras
+  pacman -Syyu --needed --noconfirm libva-mesa-driver vulkan-radeon
   ```
 
   4. Reboot the LXC.
