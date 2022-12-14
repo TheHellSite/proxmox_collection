@@ -52,11 +52,3 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
   ```
   usermod -aG render jellyfin
   ```
-
-  3. Install the Mesa drivers.
-  ```
-  # Arch Linux
-  pacman -Syyu --needed --noconfirm mesa
-  ```
-
-  4. Reboot the LXC.
