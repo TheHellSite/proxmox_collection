@@ -52,3 +52,6 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
   ```
   usermod -aG render jellyfin
   ```
+
+  3. At this point it is most likely necessary to install additional drivers in the LXC.  
+  Take a look at my Jellyfin VA-API guide for this: https://github.com/TheHellSite/archlinux_lxc/blob/main/jellyfin/README.md#jellyfin-va-api-hardware-transcoding-run-as-root-user
