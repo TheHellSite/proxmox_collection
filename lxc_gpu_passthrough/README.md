@@ -52,4 +52,4 @@
   ```
 
   3. At this point it is most likely necessary to install additional drivers in the LXC.  
-  Take a look at my Jellyfin VA-API guide for this: https://github.com/TheHellSite/archlinux_lxc/blob/main/jellyfin/README.md#jellyfin-va-api-hardware-transcoding-run-as-root-user
+  Take a look at my Jellyfin VA-API guide for this: https://github.com/TheHellSite/archlinux_lxc/tree/main/jellyfin#jellyfin-va-api-hardware-accelerated-video-transcoding-run-as-root-user
