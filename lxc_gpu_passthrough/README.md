@@ -30,12 +30,12 @@
     2. Mount the render device in the LXC.
            lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
     3. Change UID and GID of the render device to root:render on the PVE host during each start of the LXC.
-           lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"
+           lxc.hook.pre-start: sh -c "chown 100000:100989 /dev/dri/renderD128"
   </details>
 
   ```
   # use the command below if your LXC is unprivileged
-  { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
+  { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 100000:100989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   
   # use the command below if your LXC is privileged
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
