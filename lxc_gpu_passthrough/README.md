@@ -1,6 +1,6 @@
 # LXC GPU passthrough (run commands as root user)
 
-### 1. PVE Host: Get the render device ID.
+### 1. PVE Host: Get the renderD128 device ID.
 
   ```
   ls -l /dev/dri
@@ -13,23 +13,24 @@
   crw-rw---- 1 root video  226,   0 Oct  1 10:51 card0
   crw-rw---- 1 root render 226, 128 Oct  1 10:51 renderD128
   
-  --> In this case "226,128" is the render device ID.
+  --> In this case "226,128" is the renderD128 device ID.
   ```
 
 ### 2. PVE Host: Shutdown the LXC, run one of the commands below and start the LXC.
 
   **!!! Adjust the "LXC_ID" at the end of the command !!! (necessary)**\
-  !!! Adjust the render device ID !!! *(if necessary)*\
+  !!! Adjust the renderD128 device ID !!! *(if necessary)*\
   !!! Adjust the GID=989 in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
+  !!! For unprivileged LXCs the ID must be incremented by 100000 !!!
 
   <details>
   <summary><b>Command explanation</b></summary>
     
-    1. Grant the LXC access to the render device of the PVE host.
+    1. Grant the LXC access to the renderD128 device of the PVE host.
            lxc.cgroup2.devices.allow: c 226:128 rwm
-    2. Mount the render device in the LXC.
+    2. Mount the renderD128 device in the LXC.
            lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
-    3. Change UID and GID of the render device to root:render on the PVE host during each start of the LXC.
+    3. Change the UID/GID of the renderD128 device on the PVE host, right before actually starting the LXC, to the UID/GID matching root:render inside the LXC.
            lxc.hook.pre-start: sh -c "chown 100000:100989 /dev/dri/renderD128"
   </details>
 
