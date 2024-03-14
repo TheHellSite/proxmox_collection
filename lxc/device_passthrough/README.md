@@ -119,7 +119,7 @@ EOF
 3. Add service users (f.e. jellyfin) to the group "lxc_gpu_shares".
 
    ```
-   usermod -aG lxc_gpu_shares jellyfin
+   gpasswd -a jellyfin lxc_gpu_shares
    ```
 
 4. At this point it is most likely necessary to install additional drivers inside the LXC.\
