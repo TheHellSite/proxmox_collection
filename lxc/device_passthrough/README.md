@@ -62,7 +62,7 @@ crw-rw---- 1 root render 235, 0 Feb 28 17:38 /dev/kfd
 Adjust the renderD128 device ID! *(if necessary)*
 
 <details>
-  <summary>:warning: <b>Command explanation</b></summary>
+  <summary>:warning: <b>Spoiler: command explanation</b></summary>
   
   ```
   1. Grant the LXC access to the renderD128 device of the PVE host.
