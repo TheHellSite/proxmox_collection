@@ -1,9 +1,11 @@
 # Prologue - LXC device passthrough
 
 ## General Information
+
 This tutorial should work for any kind of PVE host device that is intended to be shared with LXCs, no matter if the LXC is privileged or unprivileged. For the actual step-by-step part of this tutorial the renderD128 device is used as an example.
 
 ## What is the issue?
+
 By default devices on the PVE host are not accessible inside LXCs, mainly due to permission problems but also because they are simply not available inside LXC environments. The latter can easily be fixed by adding the desired device to the LXC config file.
 
 The permission problem is a bit more difficult to solve. This is because UIDs/GIDs of devices on the PVE host are not always equal inside LXCs.
@@ -16,6 +18,7 @@ As an example on the Debian based PVE host group render has the GID=103 and insi
 https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 
 ## What is the solution?
+
 1. Add the desired device to the LXC config file.
 2. Choose a universal GID=111000 that can exist on the PVE host, in privileged LXCs and in unprivileged LXCs.
 3. Assign the desired device to the UID=100000 which belongs to the root user inside unprivileged LXCs.
@@ -24,6 +27,7 @@ https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 6. Add LXC users, that need access to the device, to the group "lxc_gpu_shares".
 
 ## What are the benefits?
+
 - much easier to set up and understand than ID mappings (https://pve.proxmox.com/wiki/Unprivileged_LXC_containers#Using_local_directory_bind_mount_points)
 - a unified solution that works with both privileged and unprivileged LXCs
 - the root user in privileged and unprivileged LXCs has full access to the device
