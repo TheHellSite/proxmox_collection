@@ -107,13 +107,13 @@ EOF
    1. Privileged LXCs - Create the group "lxc_gpu_shares" with GID=111000.
       
       ```
-      root@lxc:~# groupadd -g 111000 lxc_shares
+      root@lxc:~# groupadd -g 111000 lxc_gpu_shares
       ```
    
    2. Unprivileged LXCs - Create the group "lxc_gpu_shares" with GID=11000.
       
       ```
-      root@lxc:~# groupadd -g 11000 lxc_shares
+      root@lxc:~# groupadd -g 11000 lxc_gpu_shares
       ```
 
 3. Add service users (f.e. jellyfin) to the group "lxc_gpu_shares".
