@@ -30,9 +30,9 @@ https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 
 - much easier to set up and understand than ID mappings (https://pve.proxmox.com/wiki/Unprivileged_LXC_containers#Using_local_directory_bind_mount_points)
 - a unified solution that works with both privileged and unprivileged LXCs
-- the root user in privileged and unprivileged LXCs has full access to the device
-- the GPU (renderD128 device) can be assigned and simultaneously used by as many LXCs as desired
-- works for any kind of device, not just GPUs
+- the root user on the PVE host, in privileged LXCs and unprivileged LXCs has full access to the device
+- the device can be assigned to / simultaneously used by as many LXCs as desired
+- works with almost any kind of PVE host resources
 
 ---
 
