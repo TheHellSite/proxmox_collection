@@ -21,7 +21,7 @@ https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 3. Assign the desired device to the UID=100000 which belongs to the root user inside unprivileged LXCs.
 4. Assign the desired device to the universal GID=111000 so it can be used simultaneously on the PVE host and inside multiple privileged/unprivileged LXCs.
 5. Create the universal group "lxc_gpu_shares" inside the LXCs.
-6. Add LXC users, that need access to the device, to the group "lxc_gpu_shares"
+6. Add LXC users, that need access to the device, to the group "lxc_gpu_shares".
 
 ## What are the benefits?
 - much easier to set up and understand than ID mappings (https://pve.proxmox.com/wiki/Unprivileged_LXC_containers#Using_local_directory_bind_mount_points)
