@@ -23,8 +23,8 @@ https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 2. Choose a universal GID=111000 that can exist on the PVE host, in privileged LXCs and in unprivileged LXCs.
 3. Assign the desired device to the UID=100000 which belongs to the root user inside unprivileged LXCs.
 4. Assign the desired device to the universal GID=111000 so it can be used simultaneously on the PVE host and inside multiple privileged/unprivileged LXCs.
-5. Create the universal group "lxc_gpu_shares" inside the LXCs.
-6. Add LXC users, that need access to the device, to the group "lxc_gpu_shares".
+5. Create the universal group "lxc_device_shares" inside the LXCs.
+6. Add LXC users, that need access to the device, to the group "lxc_device_shares".
 
 ## What are the benefits?
 
@@ -128,7 +128,7 @@ EOF
 3. Add service users (f.e. jellyfin) to the group "lxc_gpu_shares".
    
    ```
-   gpasswd -a jellyfin lxc_gpu_shares
+   root@lxc:~# gpasswd -a jellyfin lxc_gpu_shares
    ```
 
 4. At this point it is most likely necessary to install additional drivers inside the LXC.\
