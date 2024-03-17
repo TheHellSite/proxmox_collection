@@ -10,7 +10,7 @@ By default devices on the PVE host are not accessible inside LXCs, mainly due to
 
 The permission problem is a bit more difficult to solve. This is because UIDs/GIDs of devices on the PVE host are not always equal inside LXCs.
 
-For privileged LXCs those UIDs/GIDs are mostly unequal to the PVE host when using other Linux derivates inside the LXC (f.e. Arch Linux).\
+For privileged LXCs those UIDs/GIDs are sometimes unequal to the PVE host, especially when using other Linux derivates inside the LXC (f.e. Arch Linux).\
 As an example on the Debian based PVE host group render has the GID=103, but inside an Arch Linux LXC group render has the GID=989.
 
 With unprivileged LXCs this is even more complicated because here each UID/GID is incremented by 100000.\
