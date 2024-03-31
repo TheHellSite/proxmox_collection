@@ -2,7 +2,9 @@
 
 ## General Information
 
-This tutorial should work for any kind of PVE host device that is intended to be shared with LXCs, no matter if the LXC is privileged or unprivileged. For the actual step-by-step part of this tutorial the renderD128 device is used as an example.
+This tutorial should work for any kind of PVE host device that is intended to be shared with LXCs, no matter if the LXC is privileged or unprivileged. For the actual step-by-step part of this tutorial the renderD128 device is used only as an example, the overall principle can be used with any kind of device.
+
+For security reasons I strongly advise to create individual and unique GIDs (and group names) for each type of device / each individual device, do not add them all to the example `lxc_DEVICENAME_shares` group as this might lead to a user/software beeing able to access a device it doesn't actually need access to.
 
 ## What is the issue?
 
@@ -10,21 +12,21 @@ By default devices on the PVE host are not accessible inside LXCs, mainly due to
 
 The permission problem is a bit more difficult to solve. This is because UIDs/GIDs of devices on the PVE host are not always equal inside LXCs.
 
-For privileged LXCs those UIDs/GIDs are sometimes unequal to the PVE host, especially when using other Linux derivates inside the LXC (f.e. Arch Linux).\
-As an example on the Debian based PVE host group render has the GID=103, but inside an Arch Linux LXC group render has the GID=989.
+For privileged LXCs those UIDs/GIDs can sometimes be unequal to the PVE host, especially when using other Linux derivates inside the LXC (f.e. Arch Linux).\
+As an example on the Debian based PVE host group `render` has the GID=103, but inside an Arch Linux LXC group `render` has the GID=989.
 
-With unprivileged LXCs this is even more complicated because here each UID/GID is incremented by 100000.\
-As an example on the Debian based PVE host group render has the GID=103 and inside an unprivileged Arch Linux LXC group render has the GID=989. However, for the PVE host the (unprivileged) GID=989 is actually the GID=100989, see the below Proxmox Wiki link for more information on this.\
+With unprivileged LXCs this is even more complicated! From the perspective of the PVE host each UID/GID of an unprivileged LXC is incremented by 100000.\
+As an example on the Debian based PVE host group `render` has the GID=103 and inside an unprivileged Arch Linux LXC group `render` has the GID=989. However, the PVE host actually sees that GID=989 as GID=100989, see the below Proxmox Wiki link for more information on this.\
 https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 
 ## What is the solution?
 
 1. Add the desired device to the LXC config file.
-2. Choose a universal GID=111000 that can exist on the PVE host, in privileged LXCs and in unprivileged LXCs.
-3. Assign the desired device to the UID=100000 which belongs to the root user inside unprivileged LXCs.
-4. Assign the desired device to the universal GID=111000 so it can be used simultaneously on the PVE host and inside multiple privileged/unprivileged LXCs.
-5. Create the universal group "lxc_device_shares" inside the LXCs.
-6. Add LXC users, that need access to the device, to the group "lxc_device_shares".
+2. Choose a unique GID greater than 110000 (f.e. GID=111000) that can exist on the PVE host, in privileged LXCs and in unprivileged LXCs.
+3. Assign the desired device to the UID=100000, which belongs to the root user inside unprivileged LXCs.
+4. Assign the desired device to the newly created unique GID so it can be used simultaneously on the PVE host and by users inside of (multiple) privileged/unprivileged LXCs.
+5. Create the group `lxc_DEVICENAME_shares` with the unique GID inside the LXC.
+6. Add LXC users, that need access to the device, to the group `lxc_DEVICENAME_shares`.
 
 ## What are the benefits?
 
